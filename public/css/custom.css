@@ -1,0 +1,72 @@
+/* WAVES  */
+body {
+    margin: 0;
+}
+
+/* FOOTER */
+footer {
+    height: 3vh;
+    width: 100%;
+    background: linear-gradient(-45deg, #9C27B0, #F50057, #e73c7e);
+    background-size: 400% 400%;
+    animation: gradient 7s ease infinite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.8rem;
+    position: fixed;
+    bottom: 0px;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* STICKY HEADER */
+.tbl-fixed {
+    max-height: 40vh;
+    overflow-y: scroll;
+}
+
+.sticky {
+    position: sticky;
+    top: 0px;
+    background: white;
+}
+
+/* hide scrollbar for chrome, safari, opera */
+body::-webkit-scrollbar {
+    display: none;
+}
+
+.tbl-fixed::-webkit-scrollbar {
+    display: none;
+}
+
+/* hide scrollbar for firefox */
+html {
+    scrollbar-width: none;
+}
+
+.tbl-fixed {
+    scrollbar-width: none;
+}
+
+/* hide scrollbar for edge, IE */
+body {
+    -ms-overflow-style: none;
+}
+
+.tbl-fixed {
+    -ms-overflow-style: none;
+}
