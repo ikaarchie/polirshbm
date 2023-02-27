@@ -96,8 +96,8 @@
                                     <td width="35%">'+panggil_antrian[i]['namadokter']+'</td>\
                                     <td width="35%">'+panggil_antrian[i]['namapasien']+'</td>\
                                     <td class="text-center">\
-                                        <button type="submit" class="btn btn-lg btn-success">'+"Panggil"+'</button>\
-                                        <button type="submit" class="btn btn-lg btn-primary">'+"Panggil Ulang"+'</button>\
+                                        <button type="submit" class="btn btn-sm btn-success">'+"Panggil"+'</button>\
+                                        <button type="submit" class="btn btn-sm btn-primary">'+"Panggil Ulang"+'</button>\
                                     </td>\
                                 </tr>';
                         }

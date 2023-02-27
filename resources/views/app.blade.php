@@ -24,8 +24,6 @@
 <body>
     @yield('content')
 
-    @include('popup')
-
     <footer class="text-light">
         &copy; 2023 IT Support, RSHBM.
     </footer>
