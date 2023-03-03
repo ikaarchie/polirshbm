@@ -18,4 +18,4 @@ Route::get('/input', [AntrianPoliController::class, 'show'])->name('show');
 Route::post('/save', [AntrianPoliController::class, 'save'])->name('save');
 Route::get('/panggil', [AntrianPoliController::class, 'panggil'])->name('panggil');
 Route::post('/savepanggil', [AntrianPoliController::class, 'savepanggil'])->name('savepanggil');
-Route::get('/display', [AntrianPoliController::class, 'display'])->name('display');
+Route::get('/display/{id}', [AntrianPoliController::class, 'display'])->name('display');

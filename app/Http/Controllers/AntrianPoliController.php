@@ -68,9 +68,9 @@ class AntrianPoliController extends Controller
         return redirect('/panggil')->with('success', 'Antrian dipanggil');
     }
 
-    public function display()
+    public function display($id)
     {
-        $display = AntrianPoliklinik::get();
+        $display = AntrianPoliklinik::find($id);
 
         return view('display_antrian')->with('display', $display);
     }

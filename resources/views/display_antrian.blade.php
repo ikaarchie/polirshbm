@@ -8,6 +8,8 @@
 </div>
 
 <div class="container">
+    {{ dd($display) }}
+
     <h1><span id="responsecontainer"></span></h1>
 </div>
 

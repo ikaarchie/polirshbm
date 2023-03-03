@@ -18,6 +18,7 @@ class CreateAntrianPolikliniks extends Migration
             $table->string('namadokter');
             $table->string('pembayaran');
             $table->string('namapasien');
+            $table->string('status_panggil')->nullable()->default(null);
             $table->timestamps();
         });
     }

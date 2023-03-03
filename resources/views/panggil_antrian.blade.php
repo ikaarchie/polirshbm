@@ -23,55 +23,56 @@
                 @endif
             </select>
 
-            <form action="{{ route('display') }}" method="GET">
-                {{-- <form action="{{ route('savepanggil') }}" method="POST"> --}}
-                    @csrf
-                    <div class="table-responsive mt-1 table-data tbl-fixed">
-                        <table class="table table-bordered align-middle w-100">
-                            <thead>
-                                <tr class="sticky text-center">
-                                    <th>No</th>
-                                    <th>Jenis Pembayaran</th>
-                                    <th width="35%">Nama Dokter</th>
-                                    <th width="35%">Nama Pasien</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tbody">
-                                @if(count($panggil_antrian) > 0)
-                                @php $no = 1; @endphp
-                                @foreach($panggil_antrian as $key => $panggil)
-                                <tr>
-                                    <input type="hidden" id="id" name="id" value="{{ $panggil['id'] }}">
-                                    <td>{{ $panggil_antrian->firstItem() + $key }}</td>
-                                    <td>
-                                        {{ $panggil['pembayaran']}}
-                                        <input type="hidden" id="pembayaran" name="pembayaran"
-                                            value="{{ $panggil['pembayaran'] }}">
-                                    </td>
-                                    <td width="35%">
-                                        {{ $panggil['namadokter'] }}
-                                        <input type="hidden" id="namadokter" name="namadokter"
-                                            value="{{ $panggil['namadokter'] }}">
-                                    </td>
-                                    <td width="35%">
-                                        {{ $panggil['namapasien'] }}
-                                        <input type="hidden" id="namapasien" name="namapasien"
-                                            value="{{ $panggil['namapasien'] }}">
-                                    </td>
-                                    <td class="text-center">
-                                        {{-- <a href="#" id="panggil" class="btn btn-sm btn-success">Panggil</a> --}}
-                                        {{-- <button type="submit" class="btn btn-sm btn-success">Panggil</button> --}}
-                                        <button type="submit" class="btn btn-sm btn-success">Panggil</button>
-                                        <button type="" class="btn btn-sm btn-primary">Panggil Ulang</button>
-                                    </td>
-                                </tr>
-                                @endforeach
-                                @endif
-                            </tbody>
-                        </table>
-                    </div>
-                </form>
+            {{-- <form action="{{ route('display') }}" method="GET"> --}}
+                {{-- @csrf --}}
+                <div class="table-responsive mt-1 table-data tbl-fixed">
+                    <table class="table table-bordered align-middle w-100">
+                        <thead>
+                            <tr class="sticky text-center">
+                                <th>No</th>
+                                <th>Jenis Pembayaran</th>
+                                <th width="35%">Nama Dokter</th>
+                                <th width="35%">Nama Pasien</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody">
+                            @if(count($panggil_antrian) > 0)
+                            @php $no = 1; @endphp
+                            @foreach($panggil_antrian as $key => $panggil)
+                            <tr>
+                                <input type="hidden" id="id" name="id" value="{{ $panggil['id'] }}">
+                                <td>{{ $panggil_antrian->firstItem() + $key }}</td>
+                                <td>
+                                    {{ $panggil['pembayaran']}}
+                                    <input type="hidden" id="pembayaran" name="pembayaran"
+                                        value="{{ $panggil['pembayaran'] }}">
+                                </td>
+                                <td width="35%">
+                                    {{ $panggil['namadokter'] }}
+                                    <input type="hidden" id="namadokter" name="namadokter"
+                                        value="{{ $panggil['namadokter'] }}">
+                                </td>
+                                <td width="35%">
+                                    {{ $panggil['namapasien'] }}
+                                    <input type="hidden" id="namapasien" name="namapasien"
+                                        value="{{ $panggil['namapasien'] }}">
+                                </td>
+                                <td class="text-center">
+                                    {{-- <a href="display/{{ $panggil->id }}" class="btn btn-sm btn-success">Panggil</a>
+                                    --}}
+                                    <button type="submit" class="btn btn-sm btn-success">Panggil</button>
+                                    <button type="" class="btn btn-sm btn-primary">Panggil Ulang</button>
+                                </td>
+                            </tr>
+                            @endforeach
+                            @endif
+                        </tbody>
+                    </table>
+                </div>
+
+                {{--
+            </form> --}}
         </div>
     </div>
 </div>

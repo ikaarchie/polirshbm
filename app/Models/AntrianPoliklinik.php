@@ -11,6 +11,7 @@ class AntrianPoliklinik extends Model
     protected $fillable = [
         'namadokter',
         'pembayaran',
-        'namapasien'
+        'namapasien',
+        'status_panggil'
     ];
 }
