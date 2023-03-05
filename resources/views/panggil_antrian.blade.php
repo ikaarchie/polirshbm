@@ -23,8 +23,8 @@
                 @endif
             </select>
 
-            {{-- <form action="{{ route('display') }}" method="GET"> --}}
-                {{-- @csrf --}}
+            <form action="{{ route('display') }}" method="GET">
+                @csrf
                 <div class="table-responsive mt-1 table-data tbl-fixed">
                     <table class="table table-bordered align-middle w-100">
                         <thead>
@@ -33,6 +33,7 @@
                                 <th>Jenis Pembayaran</th>
                                 <th width="35%">Nama Dokter</th>
                                 <th width="35%">Nama Pasien</th>
+                                <th width="">Status</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -53,16 +54,21 @@
                                     <input type="hidden" id="namadokter" name="namadokter"
                                         value="{{ $panggil['namadokter'] }}">
                                 </td>
-                                <td width="35%">
+                                <td width="25%">
                                     {{ $panggil['namapasien'] }}
                                     <input type="hidden" id="namapasien" name="namapasien"
                                         value="{{ $panggil['namapasien'] }}">
                                 </td>
+                                <td width="">
+                                    {{ $panggil['status_panggil'] }}
+                                    <input type="hidden" id="status_panggil" name="status_panggil"
+                                        value="{{ $panggil['status_panggil'] }}">
+                                </td>
                                 <td class="text-center">
-                                    {{-- <a href="display/{{ $panggil->id }}" class="btn btn-sm btn-success">Panggil</a>
-                                    --}}
-                                    <button type="submit" class="btn btn-sm btn-success">Panggil</button>
-                                    <button type="" class="btn btn-sm btn-primary">Panggil Ulang</button>
+                                    <a href="{{ route('savepanggil', ['id' => $panggil['id']]) }}" class="btn btn-sm btn-success">Panggil</a>
+                                    
+                                    {{-- <button type="submit" class="btn btn-sm btn-success">Panggil</button>
+                                    <button type="" class="btn btn-sm btn-primary">Panggil Ulang</button> --}}
                                 </td>
                             </tr>
                             @endforeach
@@ -71,8 +77,7 @@
                     </table>
                 </div>
 
-                {{--
-            </form> --}}
+            </form>
         </div>
     </div>
 </div>
@@ -96,15 +101,15 @@
                                     <td>'+panggil_antrian[i]['pembayaran']+'</td>\
                                     <td width="35%">'+panggil_antrian[i]['namadokter']+'</td>\
                                     <td width="35%">'+panggil_antrian[i]['namapasien']+'</td>\
+                                    <td width="">'+panggil_antrian[i]['status_panggil']+'</td>\
                                     <td class="text-center">\
-                                        <button type="submit" class="btn btn-sm btn-success">'+"Panggil"+'</button>\
-                                        <button type="submit" class="btn btn-sm btn-primary">'+"Panggil Ulang"+'</button>\
+                                        <a href="savepanggil/' + panggil_antrian[i]['id'] + '" class="btn btn-sm btn-success">Panggil</a>\
                                     </td>\
                                 </tr>';
                         }
                     } else {
                         html += '<tr>\
-                                    <td colspan="5" class="bg-danger text-white text-center">Tidak ada antrian</td>\
+                                    <td colspan="6" class="bg-danger text-white text-center">Tidak ada antrian</td>\
                                 </tr>';
                     }
 

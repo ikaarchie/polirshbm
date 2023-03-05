@@ -7,18 +7,61 @@
     <h2 class="text-center">Rumah Sakit Hermina Banyumanik Semarang</h2>
 </div>
 
-<div class="container">
-    {{ dd($display) }}
-
-    <h1><span id="responsecontainer"></span></h1>
+<div class="container" id="appVue">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">No</th>
+                <th scope="col">Nama Dokter</th>
+                <th scope="col">Nama Pasien</th>
+                <th scope="col">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="(item,index) in data_pasien">
+                <td>@{{ index + 1 }}</td>
+                <td>@{{ item.namadokter }}</td>
+                <td>@{{ item.namapasien }}</td>
+                <td>@{{ item.status_panggil }}</td>
+            </tr>
+        </tbody>
+    </table>
 </div>
+@endsection
+
+@section('javascript')
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    var vueDataPasien = new Vue({
+        el: "#appVue",
+        data: {
+            data_pasien: []
+        },
+        mounted() {
+            this.getData();
+        },
+        methods: {
+            getData: function() {
+                let url = "{{ url('display') }}";
+                axios.get(url)
+                    .then(resp => {
+                        this.data_pasien = resp.data.data;
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        alert('error');
+                    })
+            }
+        }
+    })
+</script>
+<script src="{{ asset('js/app.js') }}"></script>
 
 <script>
-    $(document).ready(function() {
- 	 $("#responsecontainer").load("respon/respon_transaksi.php");
-   var refreshId = setInterval(function() {
-      $("#responsecontainer").load('respon/respon_transaksi.php');
-   }, 2000);
-   $.ajaxSetup({ cache: false });
-});
+    window.Echo.channel("messages").listen("ServerCreated", (event) => {
+        console.log('berhasil');
+        vueDataPasien.getData();
+    });
 </script>
+@endsection

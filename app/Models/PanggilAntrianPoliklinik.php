@@ -8,9 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class PanggilAntrianPoliklinik extends Model
 {
     use HasFactory;
+
+    protected $table = 'antrian_polikliniks';
+
     protected $fillable = [
         'namadokter',
         'pembayaran',
-        'namapasien'
+        'namapasien',
+        'status_panggil'
     ];
 }

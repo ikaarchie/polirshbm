@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Models\AntrianPoliklinik;
 use App\Models\PanggilAntrianPoliklinik;
 
+use App\Events\ServerCreated;
+
 class AntrianPoliController extends Controller
 {
     public function show(Request $request)
@@ -31,6 +33,7 @@ class AntrianPoliController extends Controller
         $data->namadokter = $request->input('namadokter');
         $data->pembayaran = $request->input('pembayaran');
         $data->namapasien = $request->input('namapasien');
+        $data->status_panggil = 'Menunggu'; // ['Menunggu', 'Dipanggil', 'Selesai']
         $data->save();
 
         return redirect('/input')->with('success', 'Data berhasil disimpan!');
@@ -51,26 +54,24 @@ class AntrianPoliController extends Controller
         return view('panggil_antrian', compact('dokter', 'panggil_antrian'));
     }
 
-    public function savepanggil(Request $request)
+    public function savepanggil(Request $request, $id)
     {
-        // $data = new PanggilAntrianPoliklinik();
-        // $data->namadokter = $request->input('namadokter');
-        // $data->pembayaran = $request->input('pembayaran');
-        // $data->namapasien = $request->input('namapasien');
-        // dd($data);
-        // $data->save();
+        $panggil = PanggilAntrianPoliklinik::where(['id' => $id])->first();
+        $panggil->status_panggil = 'Dipanggil';
+        $panggil->save();
 
-        $panggil = PanggilAntrianPoliklinik::where(['id' => $request->id]);
-        $input = $request->all();
-        dd($input);
-        $panggil->fill($input)->save();
+        ServerCreated::dispatch();
 
         return redirect('/panggil')->with('success', 'Antrian dipanggil');
     }
 
-    public function display($id)
+    public function display(Request $request)
     {
-        $display = AntrianPoliklinik::find($id);
+        $display = AntrianPoliklinik::whereIn('status_panggil', array('Dipanggil', 'Menunggu'))->orderBy('status_panggil', 'asc')->get();
+
+        if ($request->expectsJson()) {
+            return response()->json(['data' => $display], 200);
+        }
 
         return view('display_antrian')->with('display', $display);
     }

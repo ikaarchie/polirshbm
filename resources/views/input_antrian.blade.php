@@ -65,6 +65,7 @@
                             <th>Jenis Pembayaran</th>
                             <th width="40%">Nama Dokter</th>
                             <th width="40%">Nama Pasien</th>
+                            <th width="">Status</th>
                         </tr>
                     </thead>
                     <tbody id="tbody">
@@ -76,6 +77,7 @@
                             <td>{{ $list['pembayaran']}}</td>
                             <td width="40%">{{ $list['namadokter'] }}</td>
                             <td width="40%">{{ $list['namapasien'] }}</td>
+                            <td width="">{{ $list['status_panggil'] }}</td>
                         </tr>
                         @endforeach
                         @endif
@@ -105,11 +107,12 @@
                                     <td>'+list_antrian[i]['pembayaran']+'</td>\
                                     <td width="40%">'+list_antrian[i]['namadokter']+'</td>\
                                     <td width="40%">'+list_antrian[i]['namapasien']+'</td>\
+                                    <td width="">'+list_antrian[i]['status_panggil']+'</td>\
                                 </tr>';
                         }
                     } else {
                         html += '<tr>\
-                                    <td colspan="4" class="bg-danger text-white text-center">Tidak ada antrian</td>\
+                                    <td colspan="5" class="bg-danger text-white text-center">Tidak ada antrian</td>\
                                 </tr>';
                     }
 
