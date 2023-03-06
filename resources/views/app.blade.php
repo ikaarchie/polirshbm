@@ -19,11 +19,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    @yield('css')
 </head>
 
 <body>
     @yield('content')
 
+    @yield('javascript')
     <footer class="text-light">
         &copy; 2023 IT Support, RSHBM.
     </footer>

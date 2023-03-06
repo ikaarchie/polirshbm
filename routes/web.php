@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Events\ServerCreated;
 use App\Http\Controllers\AntrianPoliController;
 
 /*
@@ -17,5 +18,11 @@ use App\Http\Controllers\AntrianPoliController;
 Route::get('/input', [AntrianPoliController::class, 'show'])->name('show');
 Route::post('/save', [AntrianPoliController::class, 'save'])->name('save');
 Route::get('/panggil', [AntrianPoliController::class, 'panggil'])->name('panggil');
-Route::post('/savepanggil', [AntrianPoliController::class, 'savepanggil'])->name('savepanggil');
-Route::get('/display/{id}', [AntrianPoliController::class, 'display'])->name('display');
+Route::get('/savepanggil/{id}', [AntrianPoliController::class, 'savepanggil'])->name('savepanggil');
+Route::get('/display', [AntrianPoliController::class, 'display'])->name('display');
+
+Route::get('/test-broadcast-event', function () {
+    ServerCreated::dispatch('Burhan ganteng');
+    
+    echo 'test broadcast event sangcahaya.id';
+});
