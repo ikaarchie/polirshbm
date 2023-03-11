@@ -194,7 +194,8 @@ class AntrianPoliController extends Controller
 
     public function displayReg(Request $request)
     {
-        $display = AntrianPoliklinik::whereIn('status_panggil', array('Dipanggil', 'Menunggu'))->orderBy('status_panggil', 'asc')->get();
+        $display = AntrianPoliklinik::whereDate('created_at', date('Y-m-d'))
+        ->orderBy('status_panggil', 'asc')->get();
 
         if ($request->expectsJson()) {
             return response()->json(['data' => $display], 200);

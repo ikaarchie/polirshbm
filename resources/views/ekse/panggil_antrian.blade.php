@@ -142,59 +142,91 @@
     $(document).ready(function(){
         $("#filter").on('change', function(){
             var filter = $(this).val();
-            $.ajax({
-                url:"{{ route('panggilEkse') }}",
-                type:"GET",
-                data:{'dokter' : filter},
-                success:function(data){
-                    var panggil_antrian = data.panggil_antrian;
-                    var html = '';
-                    if(panggil_antrian.length > 0){
-                        for(let i=0; i<panggil_antrian.length; i++){
-                            html += '<tr>\
-                                    <td>'+(i+1)+'</td>\
-                                    <td width="30%">'+panggil_antrian[i]['nama_dokter']+'</td>\
-                                    <td>'+panggil_antrian[i]['waktu_praktek']+'</td>\
-                                    <td >'+panggil_antrian[i]['jenis_poli']+'</td>\
-                                    <td width="30%">'+panggil_antrian[i]['nama_pasien']+'</td>\
-                                    <td>\
-                                        if('+panggil_antrian[i]['status_panggil']==="Menunggu"+'){\
-                                            <td class="text-center">\
-                                                <b>'+panggil_antrian[i]['status_panggil']+'</b>\
-                                            </td>\
-                                        }elseif('+panggil_antrian[i]['status_panggil']==="Dipanggil"+'){\
-                                            <td class="bg-success text-light text-center">\
-                                                <b>'+panggil_antrian[i]['status_panggil']+'</b>\
-                                            </td>\
-                                        }elseif('+panggil_antrian[i]['status_panggil']==="Dipending"+'){\
-                                            <td class="bg-warning text-center">\
-                                                <b>'+panggil_antrian[i]['status_panggil']+'</b>\
-                                            </td>\
-                                        }else{\
-                                            <td class="bg-danger text-light text-center">\
-                                                <b>'+panggil_antrian[i]['status_panggil']+'</b>\
-                                            </td>}\
-                                    </td>\
-                                    <td class="text-center">\
-                                        <div class="d-grid gap-1 d-sm-flex justify-content-sm-center">\
-                                        <a href="savepanggilEkse/' + panggil_antrian[i]['id'] + '" class="btn btn-sm btn-success">Panggil</a>\
-                                        <a href="savependingEkse/' + panggil_antrian[i]['id'] + '" class="btn btn-sm btn-warning">Pending</a>\
-                                        <a href="saveselesaiEkse/' + panggil_antrian[i]['id'] + '" class="btn btn-sm btn-danger">Selesai</a>\
-                                        </div>\
-                                    </td>\
-                                </tr>';
-                        }
-                    } else {
-                        html += '<tr>\
-                                    <td colspan="7" class="bg-danger text-white text-center">Tidak ada antrian</td>\
-                                </tr>';
-                    }
-
-                    $("#tbody").html(html);
-                }
-            });
+            loadData(filter);
         });
     });
+
+    function loadData(filter)
+    {
+        $.ajax({
+            url:"{{ route('panggilEkse') }}",
+            type:"GET",
+            data:{'dokter' : filter},
+            success:function(data){
+                console.log(filter);
+                var panggil_antrian = data.panggil_antrian;
+                var html = '';
+
+                if (panggil_antrian.length > 0) {
+                    for (let i=0; i<panggil_antrian.length; i++) {
+                        var warna = '';
+                        var font = '';
+
+                        if (panggil_antrian[i]['status_panggil'] == 'Selesai') {
+                            warna = '#dc3545';
+                            font = 'white';
+                        } else if (panggil_antrian[i]['status_panggil'] == 'Dipanggil') {
+                            warna = '#198754';
+                            font = 'white';
+                        } else if (panggil_antrian[i]['status_panggil'] == 'Dipending') {
+                            warna = '#ffc107';
+                            font = 'black';
+                        } else {
+                            font = 'black';
+                            warna = 'transparant';
+                        }
+
+                        html += '<tr>\
+                                <td>'+(i+1)+'</td>\
+                                <td width="30%">'+panggil_antrian[i]['nama_dokter']+'</td>\
+                                <td>'+panggil_antrian[i]['waktu_praktek']+'</td>\
+                                <td>'+panggil_antrian[i]['jenis_poli']+'</td>\
+                                <td width="30%">'+panggil_antrian[i]['nama_pasien']+'</td>\
+                                <td style="background-color: '+warna+'; color: '+font+'">'+panggil_antrian[i]['status_panggil']+'</td>\
+                                <td class="text-center">\
+                                    <div class="d-grid gap-1 d-sm-flex justify-content-sm-center">\
+                                    <a href="javascript:void(0)" onclick="updateStatus('+"'"+filter+"'"+','+panggil_antrian[i]['id']+', 1)" class="btn btn-sm btn-success" id="panggil_'+i+'">Panggil</a>\
+                                    <a href="javascript:void(0)" onclick="updateStatus('+"'"+filter+"'"+','+panggil_antrian[i]['id']+', 2)" class="btn btn-sm btn-warning" id="pending_'+i+'">Pending</a>\
+                                    <a href="javascript:void(0)" onclick="updateStatus('+"'"+filter+"'"+','+panggil_antrian[i]['id']+', 3)" class="btn btn-sm btn-danger" id="selesai_'+i+'">Selesai</a>\
+                                    </div>\
+                                </td>\
+                            </tr>';
+                    }
+                } else {
+                    html += '<tr>\
+                                <td colspan="7" class="bg-danger text-white text-center">Tidak ada antrian</td>\
+                            </tr>';
+                }
+
+                $("#tbody").html(html);
+            }
+        });
+    }
+
+    function updateStatus(filter, id, status)
+    {
+        var route = '';
+        if (status == 1) {
+            route = "savepanggilEkse/" + id ;
+        }
+
+        if (status == 2) {
+            route = "savependingEkse/" + id ;
+        }
+
+        if (status == 3) {
+            route = "saveselesaiEkse/" + id ;
+        }
+
+        $.ajax({
+            url: route,
+            type:"GET",
+            data:{'dokter' : filter},
+            success:function(data){
+                loadData(filter);
+            }
+        });
+    }
 </script>
 
 <script>
@@ -209,24 +241,3 @@
             });
     });
 </script>
-
-{{-- <script>
-    $(document).ready(function(){
-        $(document).on('click','.panggil',function(e){
-            e.preventDefault();
-            let status_panggil = $('#status_panggil').val();
-            
-            $.ajax({
-                url: "{{ route('savepanggilEkse', ['id' => $panggil['id']]) }}",
-                method: "GET",
-                data: {status_panggil:status_panggil},
-                    success: function(res){
-                        if(res.status == 'success'){
-                            // $('.wkwk').load(location.href+' .wkwk');    
-                            $('#wkwk').load(document.URL + ' #wkwk');
-                        }
-                    }
-            });
-        })
-    });
-</script> --}}

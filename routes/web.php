@@ -15,21 +15,26 @@ use App\Http\Controllers\AntrianPoliController;
 |
 */
 
-Route::get('/ekse/input', [AntrianPoliController::class, 'showEkse'])->name('showEkse');
-Route::post('/ekse/save', [AntrianPoliController::class, 'saveEkse'])->name('saveEkse');
-Route::get('/ekse/panggil', [AntrianPoliController::class, 'panggilEkse'])->name('panggilEkse');
-Route::get('/ekse/savepanggilEkse/{id}', [AntrianPoliController::class, 'savepanggilEkse'])->name('savepanggilEkse');
-Route::get('/ekse/savependingEkse/{id}', [AntrianPoliController::class, 'savependingEkse'])->name('savependingEkse');
-Route::get('/ekse/saveselesaiEkse/{id}', [AntrianPoliController::class, 'saveselesaiEkse'])->name('saveselesaiEkse');
-Route::get('/ekse/display', [AntrianPoliController::class, 'displayEkse'])->name('displayEkse');
+Route::group(['prefix' => 'ekse'], function() {
+    Route::get('input', [AntrianPoliController::class, 'showEkse'])->name('showEkse');
+    Route::post('save', [AntrianPoliController::class, 'saveEkse'])->name('saveEkse');
+    Route::get('panggil', [AntrianPoliController::class, 'panggilEkse'])->name('panggilEkse');
+    Route::get('savepanggilEkse/{id}', [AntrianPoliController::class, 'savepanggilEkse'])->name('savepanggilEkse');
+    Route::get('savependingEkse/{id}', [AntrianPoliController::class, 'savependingEkse'])->name('savependingEkse');
+    Route::get('saveselesaiEkse/{id}', [AntrianPoliController::class, 'saveselesaiEkse'])->name('saveselesaiEkse');
+    Route::get('display', [AntrianPoliController::class, 'displayEkse'])->name('displayEkse');
+});
 
-Route::get('/reg/input', [AntrianPoliController::class, 'showReg'])->name('showReg');
-Route::post('/reg/save', [AntrianPoliController::class, 'saveReg'])->name('saveReg');
-Route::get('/reg/panggil', [AntrianPoliController::class, 'panggilReg'])->name('panggilReg');
-Route::get('/reg/savepanggilReg/{id}', [AntrianPoliController::class, 'savepanggilReg'])->name('savepanggilReg');
-Route::get('/reg/savependingReg/{id}', [AntrianPoliController::class, 'savependingReg'])->name('savependingReg');
-Route::get('/reg/saveselesaiReg/{id}', [AntrianPoliController::class, 'saveselesaiReg'])->name('saveselesaiReg');
-Route::get('/reg/display', [AntrianPoliController::class, 'displayReg'])->name('displayReg');
+
+Route::group(['prefix' => 'reg'], function() {
+    Route::get('input', [AntrianPoliController::class, 'showReg'])->name('showReg');
+    Route::post('save', [AntrianPoliController::class, 'saveReg'])->name('saveReg');
+    Route::get('panggil', [AntrianPoliController::class, 'panggilReg'])->name('panggilReg');
+    Route::get('savepanggilReg/{id}', [AntrianPoliController::class, 'savepanggilReg'])->name('savepanggilReg');
+    Route::get('savependingReg/{id}', [AntrianPoliController::class, 'savependingReg'])->name('savependingReg');
+    Route::get('saveselesaiReg/{id}', [AntrianPoliController::class, 'saveselesaiReg'])->name('saveselesaiReg');
+    Route::get('display', [AntrianPoliController::class, 'displayReg'])->name('displayReg');
+});
 
 Route::get('/test-broadcast-event', function () {
     ServerCreated::dispatch('Burhan ganteng');

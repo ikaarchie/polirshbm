@@ -14,14 +14,16 @@
                 <th scope="col">No</th>
                 <th scope="col">Nama Dokter</th>
                 <th scope="col">Nama Pasien</th>
+                <th scope="col">Waktu Praktek</th>
                 <th scope="col">Status</th>
             </tr>
         </thead>
         <tbody>
             <tr v-for="(item,index) in data_pasien">
                 <td>@{{ index + 1 }}</td>
-                <td>@{{ item.namadokter }}</td>
-                <td>@{{ item.namapasien }}</td>
+                <td>@{{ item.nama_dokter }}</td>
+                <td>@{{ item.nama_pasien }}</td>
+                <td>@{{ item.waktu_praktek }}</td>
                 <td>@{{ item.status_panggil }}</td>
             </tr>
         </tbody>
@@ -43,7 +45,7 @@
         },
         methods: {
             getData: function() {
-                let url = "{{ url('displayReg') }}";
+                let url = "{{ route('displayReg') }}";
                 axios.get(url)
                     .then(resp => {
                         this.data_pasien = resp.data.data;
