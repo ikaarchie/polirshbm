@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAntrianPolikliniks extends Migration
+class CreateAntrianPolikliniksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,9 +15,10 @@ class CreateAntrianPolikliniks extends Migration
     {
         Schema::create('antrian_polikliniks', function (Blueprint $table) {
             $table->id();
-            $table->string('namadokter');
-            $table->string('pembayaran');
-            $table->string('namapasien');
+            $table->string('nama_dokter');
+            $table->string('waktu_praktek');
+            $table->string('jenis_poli');
+            $table->string('nama_pasien');
             $table->string('status_panggil')->nullable()->default('Menunggu');
             $table->timestamps();
         });

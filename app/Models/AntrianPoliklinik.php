@@ -9,9 +9,10 @@ class AntrianPoliklinik extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'namadokter',
-        'pembayaran',
-        'namapasien',
+        'nama_dokter',
+        'waktu_praktek',
+        'jenis_poli',
+        'nama_pasien',
         'status_panggil'
     ];
 }

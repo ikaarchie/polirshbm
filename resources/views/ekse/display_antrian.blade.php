@@ -1,9 +1,9 @@
-@extends('app')
+@extends('ekse/app')
 
 @section('content')
 
 <div class="container p-3">
-    <h1 class="text-center"><b>DISPLAY ANTRIAN POLIKLINIK</b></h1>
+    <h1 class="text-center"><b>DISPLAY ANTRIAN POLIKLINIK EKSEKUTIF</b></h1>
     <h2 class="text-center">Rumah Sakit Hermina Banyumanik Semarang</h2>
 </div>
 
